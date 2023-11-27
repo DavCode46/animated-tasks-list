@@ -27,21 +27,43 @@ export class tarreasManager{
     }
     
     editarTarea(id, descripcion){
-        const indice = this.arregloTareas.findIndex((tarea) => tarea.id === id);
-        this.arregloTareas[indice].editar(descripcion);
+        const indice = this.arregloTareas.find((tarea) => tarea.id === id);
+        if(indice){
+            indice.editar(descripcion);
+            this.setAreegloTareas();
+        }
     }
-    
+
     eliminarTarea(id){
-        const indice = this.arregloTareas.findIndex((tarea) => tarea.id === id);
-        this.arregloTareas.splice(indice, 1);
+        this.arregloTareas = this.arregloTareas.filter((tarea) => tarea.id !== id);
+        this.setArregloTareas();
+        /* const indice = this.arregloTareas.findIndex((tarea) => tarea.id === id);
+        this.arregloTareas.splice(indice, 1); */
+    }
+
+    limpiarTodo(){
+        this.arregloTareas = [];
+        this.contador = 0;
+        this.setArregloTareas();
+        this.setContador();
     }
 
 
     getContador(){
-        return this.contador;
+        const cont = localStorage.getItem('contador');
+        return cont;
     }
 
-    getAreegloTareas(){
-        return this.arregloTareas;
+    setContador(){
+        localStorage.setItem('contador', this.contador);
+    }
+
+    getArregloTareas(){
+        const arregloTareas = localStorage.getItem('arregloTareas');
+        return arregloTareas;
+    }
+
+    setArregloTareas(){
+        localStorage.setItem('arregloTareas', JSON.stringify(this.arregloTareas));
     }
 }
