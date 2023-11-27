@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="titulo"></h1>
-        </div>
-        <button class="boton-agregar" id="boton-agregar">Agregar una tarea</button>
-    </div>
-    <ul class="lista-tareas" id="lista-tareas">
-
-    </ul>
-    <button class="boton-limpiar">Limpiar todo</button>
-    <script src="scripts/main.js" type="module"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <title>Lista Tareas - POO</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+      <section class="main-container">
+        <div class="container">
+            <h1 class="titulo">Lista de Tareas</h1>
+            <button id="boton-agregar" class="boton-agregar">
+              Agregar una tarea
+            </button>
+            <ul class="lista-tareas"></ul>
+            <button class="boton-limpiar">Limpiar todas las tareas</button>
+        </div>     
+      </section>
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>
