@@ -1,6 +1,6 @@
 import { Tarea } from "./tarea.js"; 
 
-export class tarreasManager{
+export class tareasManager{
     constructor(listaTareas){
         this.arregloTareas = [];
         this.contador = 0;
@@ -58,12 +58,20 @@ export class tarreasManager{
         localStorage.setItem('contador', this.contador);
     }
 
+    inicializarContador(){
+        if(this.getContador() !== null){
+            this.contador = this.getContador();
+        }
+    }
+
     getArregloTareas(){
-        const arregloTareas = localStorage.getItem('arregloTareas');
-        return arregloTareas;
+        this.setContador();
+        const arreglo = JSON.parse(localStorage.getItem('arregloTareas'));
+        return arreglo || [];
     }
 
     setArregloTareas(){
         localStorage.setItem('arregloTareas', JSON.stringify(this.arregloTareas));
+        this.listarTareas();
     }
 }
