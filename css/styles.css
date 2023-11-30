@@ -1,13 +1,14 @@
 @font-face {
     font-family: Ephesis;
-    src: url("/assets/fonts/Ephesis-Regular.ttf") format('truetype');
+    src: url("/assets/fonts/Ephesis-Regular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: Montserrat;
-    src: url("/assets/fonts/Montserrat-Regular.ttf") format('truetype');
+    src: url("/assets/fonts/MontserratAlternates-Regular.ttf") format("truetype");
 }
 
+/* Variables de estilos */
 :root{
     --primary-color: #512da8;
     --hover-color: #311b92;
@@ -18,16 +19,21 @@
     --shadow: 0 .5rem 1.5rem rgb(0 0 0 / 35%);
 }
 
+/* Estilos generales 
+  1rem -> 10px*/
 html{
     box-sizing: border-box;
     font-size: 62.5%;
 }
 
 body{
-    background-color: var(--background-color);
-    background: var(--gradient);
-    font-family: Montserrat;
+    background: rgb(5, 5, 20);
+    background-image: url("../assets/img/fondoBody.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
 
 body, html {
     height: 100%;
@@ -37,56 +43,34 @@ body, html {
     justify-content: center;
     align-items: center;
 }
-*::before, *::after{
-    box-sizing: inherit;
-}  
 
 h1{
+    margin: 0 auto;
     font-size: 3rem;
-    font-family: Ephesis;
     display: block;
     font-family:monospace;
     white-space: nowrap;
-    border-right: 4px solid;
-    width: 16ch;
+    border-right: .4rem solid;
+    width: 16ch; /* 16 caracteres de ancho */
 
+    /* Animación en 16 pasos */
     animation: typing 2s steps(16) infinite alternate, blink .5s infinite step-end alternate;
     overflow: hidden;
 }
 
-.main-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--white);
-    overflow: hidden; 
-    border-radius: 3rem;
-    box-shadow: var(--shadow);
-    width: 76rem;
-    max-width: 100%;
-    min-height: 48rem;
-   
-}
+/* Estilos del contenedor */
 
 .container{
-    text-align: center;
-    height: auto;
-    padding: 10rem;
+    font-family: Montserrat;  
+    box-shadow: var(--shadow);
+    background: var(--gradient);
+    min-width: 40rem;
+    margin: auto;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
 }
 
-.container button{
-    background-color: var(--primary-color);
-    color: var(--white);
-    font-size: 1.2rem;
-    padding: 1rem 4.5rem;
-    border-radius: .8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    cursor: pointer;
-}
+/* Estilos de los inputs */
 
 .container input{
     background-color: #eee;
@@ -100,18 +84,45 @@ h1{
     outline: none;
 }
 
-.container input:focus{
-    outline: .2rem solid var(--primary-color);
-}
-
 .container input::placeholder{
     color: #aaa;
+    font-weight: 700;
+    font-family: Ephesis;
+    font-size: 2rem; 
 }
 
 .container input:focus::placeholder{
     color: transparent;
 }
 
+.container input:focus{
+    outline: .2rem solid var(--primary-color);
+}
+
+/* Estilos de los botones */
+button{
+    font-family: Montserrat;
+    background-color: var(--primary-color);
+    color: #ececec;
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+    border-radius: .8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: var(--hover-color);
+}
+
+.boton-eliminar{
+    height: 4.7rem;
+}
+
+/* Estilos de la lista dinámica */	
 li{
     list-style: none;
     margin: 1rem 0;
@@ -119,13 +130,36 @@ li{
     gap: .5rem;
 }
 
-.boton-eliminar{
-    height: 4.7rem;
-}
+.animated {
+    animation: fadeIn both 1100ms ease-in-out 0s;
+  }
 
-button:hover{
-    background-color: var(--hover-color);
-}
+  /* Importante para accesibilidad, 
+  Elimina las animaciones si el usuario así lo tiene
+  configurado en el equipo */
+  @media (prefers-reduced-motion: reduce) {
+      .animated {
+          animation: none;
+      }
+      h1{
+        animation: none;
+        overflow: visible;
+        border-right: transparent;
+      }
+  }
+
+  /* Animaciones */ 
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+/* Animación efecto máquina de escribir */
 
 @keyframes typing{
     from{
@@ -133,8 +167,45 @@ button:hover{
     }
 }
 
+/* Animación efecto parpadeo */
 @keyframes blink{
     50%{
         border-color: transparent;
     }
 }
+
+/* @keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+ */
+
+/* @keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+ */
+
+

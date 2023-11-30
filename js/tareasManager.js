@@ -1,5 +1,6 @@
 import { Tarea } from "./tarea.js";
 
+
 export class TareasManager {
   constructor(listaTareas) {
     this.arrayTareas = [];
@@ -7,30 +8,38 @@ export class TareasManager {
     this.listaTareas = listaTareas;
   }
 
+  
   agregarTarea(descripcion) {
     this.contador++;
     const nuevaTarea = new Tarea(this.contador, descripcion);
     this.arrayTareas.push(nuevaTarea);
-    //Estas son para añadirlo al localStorage
+    
     this.setContador();
     this.setArrayTareas();
   }
 
   listarTareas() {
-    //Es para inicializar la descripcion de la tarea. Esta en blanco porque aun no la hemos añadido
     this.listaTareas.innerHTML = "";
+    // Si hay información en el localStorage, la carga
+    if(localStorage.getItem('arrayTareas') != null) {
+        this.arrayTareas = this.getArrayTareas();
+    }
     this.arrayTareas.reverse().forEach((tarea) => {
       this.listaTareas.innerHTML += `
-                <li id="${tarea.id}">
+                <li class="animated fadeIn" id="${tarea.id}">
                     <input type="text" class="input-tarea" value="${tarea.descripcion}" placeholder="Tarea nueva...">
                     <button class="boton-eliminar">X</button>
                 </li>
             `;
+
+            /* setTimeout(() => {
+                document.getElementById(tarea.id).classList.remove('animated', 'fadeIn');
+            }, 1000); */
     });
   }
 
   editarTarea(idTarea, descripcion) {
-    const tarea = this.arrayTareas.find((t) => (t.id = idTarea));
+    const tarea = this.arrayTareas.find((t) => (t.id == idTarea));
     if(tarea){
         tarea.editar(descripcion);
         this.setArrayTareas();
@@ -67,11 +76,17 @@ export class TareasManager {
   getArrayTareas(){
     this.setContador();
     const array = JSON.parse(localStorage.getItem('arrayTareas'));
-    return array || [];
+    // Convertir objetos genéricos en instancias de Tarea
+    const tareasConvertidas = array.map((tarea) => new Tarea(tarea.id, tarea.descripcion));
+    // Se puede hacer en una sola línea
+   /*  JSON.parse(localStorage.getItem('arrayTareas')).map((tarea) => new Tarea(tarea.id, tarea.descripcion)); */
+    return tareasConvertidas || [];
   }
 
   setArrayTareas(){
     localStorage.setItem('arrayTareas', JSON.stringify(this.arrayTareas));
+
+
     this.listarTareas();
   }
 
